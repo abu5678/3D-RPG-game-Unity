@@ -899,6 +899,9 @@ MonoBehaviour:
   moveSpeed: 5
   JumpForce: 5
   rig: {fileID: 1634751175}
+  attackRange: 0.5
+  damage: 1
+  isAttacking: 0
 --- !u!136 &1634751173
 CapsuleCollider:
   m_ObjectHideFlags: 0

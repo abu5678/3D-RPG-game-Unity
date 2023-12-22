@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,9 @@ public class Player : MonoBehaviour
     public float JumpForce;
     public Rigidbody rig;
 
+    public float attackRange;
+    public int damage;
+    public bool isAttacking;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +30,11 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Jump();
+        }
+        //check if user clicks left mouse and is not currently attacking, (1 is for right mouse , 2 is for middle mouse)
+        if (Input.GetMouseButtonDown(0) && !isAttacking)
+        {
+            Attack();
         }
     }
     void Move()
@@ -72,5 +81,28 @@ public class Player : MonoBehaviour
             //restarts the scene when the player has 0 or less health
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         } 
+    }
+    private void Attack()
+    {
+        isAttacking = true;
+        //creates a delay 
+        Invoke("TryDamage", 0.7f);
+        Invoke("StopAttacking", 1.5f);
+    }
+    void TryDamage()
+    {
+        //sphere cast, check what objects are within sphere
+        Ray ray = new Ray(transform.position + transform.forward, transform.forward);
+        //creates spehere size of player attack range and checks for layer 6 which is enemy
+        RaycastHit[] hits = Physics.SphereCastAll(ray,attackRange,1 << 6);
+
+        foreach (RaycastHit hit in hits)
+        {
+            hit.collider.GetComponent<Enemy>().takeDamage(damage);
+        }
+    }
+    void StopAttacking()
+    {
+        isAttacking = false;
     }
 }

@@ -18,16 +18,16 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(isDead) 
+        if (isDead)
             return;
         //checks to see if the enemy is within attack range of the player
-        if(Vector3.Distance(transform.position, player.transform.position) <= attackDistance)
+        if (Vector3.Distance(transform.position, player.transform.position) <= attackDistance)
         {
             agent.isStopped = true;
             if (!isAttacking)
@@ -62,5 +62,13 @@ public class Enemy : MonoBehaviour
     {
         isAttacking = false;
     }
-
+    public void takeDamage(int damageTaken)
+    {
+        health -= damageTaken;
+        if (health <= 0)
+        {
+            isDead = true;
+            agent.isStopped = true;
+        }
+    }
 }
