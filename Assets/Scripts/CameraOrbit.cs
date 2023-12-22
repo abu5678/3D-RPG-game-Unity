@@ -8,9 +8,6 @@ public class CameraOrbit : MonoBehaviour
     public float minXLook;
     public float maxXLook;
     public Transform camAnchor;
-
-    public bool invertXRotation;
-
     public float currentXRotation;
 
     // Start is called before the first frame update
