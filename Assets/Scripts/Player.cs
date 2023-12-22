@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
         currentHealth -= damageTaken;
         if (currentHealth <= 0)
         {
-            //restarts the scene
+            //restarts the scene when the player has 0 or less health
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         } 
     }
