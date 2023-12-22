@@ -1,13 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public float moveSpeed;
+    public float JumpForce;
     public Rigidbody rig;
 
-    private void Move()
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Move();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+        }
+    }
+    void Move()
     {
         //-1 for left, 1 for right
         float x = Input.GetAxis("Horizontal");
@@ -22,15 +39,25 @@ public class Player : MonoBehaviour
 
         rig.velocity = direction;
     }
-    // Start is called before the first frame update
-    void Start()
+    void Jump()
     {
-        
+        if (canJump())
+        {
+            rig.AddForce(Vector3.up * JumpForce,ForceMode.Impulse);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    bool canJump()
     {
-        Move();
+        //uses raycast to see if the player is on the floor
+        Ray ray = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray,out hit,0.1f))
+        {
+            //check if the raycast hit the floor
+            return hit.collider != null;
+        }
+        return false;
     }
 }

@@ -580,6 +580,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  JumpForce: 5
   rig: {fileID: 1634751175}
 --- !u!136 &1634751173
 CapsuleCollider:
