@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    public int currentHealth;
+    public int maxHealth;
+
     public float moveSpeed;
     public float JumpForce;
     public Rigidbody rig;
@@ -59,5 +63,14 @@ public class Player : MonoBehaviour
             return hit.collider != null;
         }
         return false;
+    }
+    public void takeDamage(int damageTaken)
+    {
+        currentHealth -= damageTaken;
+        if (currentHealth <= 0)
+        {
+            //restarts the scene
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        } 
     }
 }

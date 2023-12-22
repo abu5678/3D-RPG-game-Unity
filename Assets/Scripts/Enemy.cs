@@ -30,6 +30,10 @@ public class Enemy : MonoBehaviour
         if(Vector3.Distance(transform.position, player.transform.position) <= attackDistance)
         {
             agent.isStopped = true;
+            if (!isAttacking)
+            {
+                Attack();
+            }
 
         }
         else
@@ -38,6 +42,25 @@ public class Enemy : MonoBehaviour
             //will chase the player
             agent.SetDestination(player.transform.position);
         }
+    }
+
+    void Attack()
+    {
+        isAttacking = true;
+        //creates a delay 
+        Invoke("TryDamage", 1.3f);
+        Invoke("StopAttacking", 2.66f);
+    }
+    void TryDamage()
+    {
+        if (Vector3.Distance(transform.position, player.transform.position) <= attackDistance)
+        {
+            player.takeDamage(damage);
+        }
+    }
+    void StopAttacking()
+    {
+        isAttacking = false;
     }
 
 }
