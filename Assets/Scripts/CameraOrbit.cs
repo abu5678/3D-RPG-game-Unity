@@ -19,7 +19,7 @@ public class CameraOrbit : MonoBehaviour
 
 
     //happens at the end of each frame
-    private void LateUpdate()
+     void LateUpdate()
     {
         float x = Input.GetAxis("Mouse X");
         float y = Input.GetAxis("Mouse Y");

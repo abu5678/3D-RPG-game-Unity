@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public int maxHealth;
 
     public float moveSpeed;
-    public float JumpForce;
+    public float jumpForce;
     public Rigidbody rig;
 
     public float attackRange;
@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
     {
         if (canJump())
         {
-            rig.AddForce(Vector3.up * JumpForce,ForceMode.Impulse);
+            rig.AddForce(Vector3.up * jumpForce,ForceMode.Impulse);
         }
     }
 
@@ -98,7 +98,8 @@ public class Player : MonoBehaviour
 
         foreach (RaycastHit hit in hits)
         {
-            hit.collider.GetComponent<Enemy>().takeDamage(damage);
+            //? checks if we are actually hitting the enemy and not nothing
+            hit.collider.GetComponent<Enemy>()?.takeDamage(damage);
         }
     }
     void StopAttacking()
