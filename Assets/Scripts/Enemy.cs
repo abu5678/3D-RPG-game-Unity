@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     public bool isDead;
 
     public NavMeshAgent agent;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -41,12 +42,15 @@ public class Enemy : MonoBehaviour
             agent.isStopped = false;
             //will chase the player
             agent.SetDestination(player.transform.position);
+            animator.SetBool("Running", true);
         }
     }
 
     void Attack()
     {
         isAttacking = true;
+        animator.SetBool("Running", false);
+        animator.SetTrigger("Attack");
         //creates a delay 
         Invoke("TryDamage", 1.3f);
         Invoke("StopAttacking", 2.66f);
@@ -69,6 +73,8 @@ public class Enemy : MonoBehaviour
         {
             isDead = true;
             agent.isStopped = true;
+            animator.SetTrigger("Die");
+            GetComponent<Collider>().enabled = false;
         }
     }
 }

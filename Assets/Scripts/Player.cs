@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     public float moveSpeed;
     public float jumpForce;
     public Rigidbody rig;
+    public Animator animator;
 
     public float attackRange;
     public int damage;
@@ -35,6 +36,10 @@ public class Player : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && !isAttacking)
         {
             Attack();
+        }
+        if(!isAttacking)
+        {
+            UpdateAnimator();
         }
     }
     void Move()
@@ -85,6 +90,7 @@ public class Player : MonoBehaviour
     private void Attack()
     {
         isAttacking = true;
+        animator.SetTrigger("Attack");
         //creates a delay 
         Invoke("TryDamage", 0.7f);
         Invoke("StopAttacking", 1.5f);
@@ -105,5 +111,31 @@ public class Player : MonoBehaviour
     void StopAttacking()
     {
         isAttacking = false;
+    }
+    void UpdateAnimator()
+    {
+        animator.SetBool("MoveForward", false);
+        animator.SetBool("MoveBackwards", false);
+        animator.SetBool("MoveRight", false);
+        animator.SetBool("MoveLeft", false);
+
+        Vector3 localVelocity = transform.InverseTransformDirection(rig.velocity);
+
+        if(localVelocity.z > 0.1f)
+        {
+            animator.SetBool("MoveForward", true);
+        }
+        else if(localVelocity.z < -0.1f)
+        {
+            animator.SetBool("MoveBackwards", true);
+        }
+        else if (localVelocity.x > 0.1f)
+        {
+            animator.SetBool("MoveRight", true);
+        }
+        else if (localVelocity.x < -0.1f)
+        {
+            animator.SetBool("MoveLeft", true);
+        }
     }
 }
