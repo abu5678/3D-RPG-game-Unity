@@ -81,6 +81,7 @@ public class Player : MonoBehaviour
     public void takeDamage(int damageTaken)
     {
         currentHealth -= damageTaken;
+        HealthBarUI.Instance.UpdateFill(currentHealth, maxHealth);
         if (currentHealth <= 0)
         {
             //restarts the scene when the player has 0 or less health

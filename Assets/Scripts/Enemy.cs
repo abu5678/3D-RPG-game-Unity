@@ -41,8 +41,11 @@ public class Enemy : MonoBehaviour
         {
             agent.isStopped = false;
             //will chase the player
-            agent.SetDestination(player.transform.position);
-            animator.SetBool("Running", true);
+            if (!isAttacking)
+            {
+                agent.SetDestination(player.transform.position);
+                animator.SetBool("Running", true);
+            }
         }
     }
 
