@@ -48,9 +48,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  score: {fileID: 0}
   attackDistance: 2
   damage: 1
   health: 5
+  pointsAmount: 100
   isAttacking: 0
   isDead: 0
   agent: {fileID: 6287925275109504121}

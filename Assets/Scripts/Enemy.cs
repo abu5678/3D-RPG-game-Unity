@@ -6,9 +6,11 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public Player player;
+    public PlayerScore score;
     public float attackDistance;
     public int damage;
     public int health;
+    public int pointsAmount;
 
     public bool isAttacking;
     public bool isDead;
@@ -78,6 +80,7 @@ public class Enemy : MonoBehaviour
             agent.isStopped = true;
             animator.SetTrigger("Die");
             GetComponent<Collider>().enabled = false;
+            score.addScore(pointsAmount);
         }
     }
 }
